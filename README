@@ -1,0 +1,40 @@
+SPARCL is a simple SPARQL query tester web app written with Clojure and Compojure.  It was mostly a learning exercise so it's tragically ugly.  The code probably isn't much better.
+
+To build:
+
+./lein uberjar
+java -jar sparcl-standalone.jar 
+
+Then visit:
+
+http://localhost:8080
+
+Sample RDF (has to be RDF/XML format right now):
+
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:ex="http://example.org/stuff/1.0/">
+  <ex:Document rdf:about="http://example.org/blue">
+    <dc:title>Blue thing</dc:title>
+  </ex:Document>
+  <ex:Document rdf:about="http://example.org/red">
+    <dc:title>Red thing</dc:title>
+  </ex:Document>
+</rdf:RDF>
+
+
+Sample SPARCL:
+
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+SELECT ?d ?t 
+WHERE {
+  ?d dc:title ?t.
+}
+
+And you should see two results on execution.
+
+
+Alex Miller
+http://tech.puredanger.com
+
