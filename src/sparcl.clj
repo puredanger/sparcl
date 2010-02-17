@@ -54,15 +54,11 @@
 (defn strs-exist? [strs]
 	(every? str-exists? strs))
 
-(defn self-or-empty [s]
-	(if (nil? s) "" s))
-
 (defn exec-page [rdf sparql]
-	(exec-html 	(self-or-empty rdf) 
-				(self-or-empty sparql) 
-				(if (strs-exist? [rdf sparql]) 
-					(results-html (exec-sparql sparql (create-model rdf)))
-					[:p "No query executed."])))
+	(exec-html rdf sparql
+		(if (strs-exist? [rdf sparql]) 
+			(results-html (exec-sparql sparql (create-model rdf)))
+			[:p "No query executed."])))
 			
 (defroutes sparcl
 	(GET "/" (exec-page nil nil))
